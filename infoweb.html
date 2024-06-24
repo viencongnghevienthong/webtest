@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Trình Duyệt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thông Tin Trình Duyệt</h1>
+    <div id="info"></div>
+
+    <script>
+        function getBrowserInfo() {
+            var userAgent = navigator.userAgent;
+            var platform = navigator.platform;
+            var language = navigator.language || navigator.userLanguage;
+            var cookiesEnabled = navigator.cookieEnabled;
+            var onlineStatus = navigator.onLine;
+            var screenWidth = screen.width;
+            var screenHeight = screen.height;
+
+            var jsVersion = (function() {
+                if (typeof Symbol === "function") return "ES6";
+                if (typeof Map === "function") return "ES5";
+                return "ES3";
+            })();
+
+            function getBrowserDetails() {
+                var ua = navigator.userAgent, tem, 
+                match = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+                if(/trident/i.test(match[1])){
+                    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+                    return {name:'IE', version:(tem[1] || '')};
+                }
+                if(match[1]=== 'Chrome'){
+                    tem = ua.match(/\b(OPR|Edge?)\/(\d+)/);
+                    if(tem != null) return {name:tem[1].replace('OPR', 'Opera'), version:tem[2]};
+                }
+                match = match[2] ? [match[1], match[2]] : [navigator.appName, navigator.appVersion, '-?'];
+                if((tem = ua.match(/version\/(\d+)/i))!= null) match.splice(1, 1, tem[1]);
+                return {
+                    name: match[0],
+                    version: match[1]
+                };
+            }
+            
+            var browserDetails = getBrowserDetails();
+
+            return {
+                userAgent: userAgent,
+                platform: platform,
+                language: language,
+                cookiesEnabled: cookiesEnabled,
+                onlineStatus: onlineStatus,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+                jsVersion: jsVersion,
+                browserName: browserDetails.name,
+                browserVersion: browserDetails.version
+            };
+        }
+
+        var info = getBrowserInfo();
+        var infoDiv = document.getElementById('info');
+        for (var key in info) {
+            if (info.hasOwnProperty(key)) {
+                var p = document.createElement('p');
+                p.className = 'info';
+                p.textContent = key + ": " + info[key];
+                infoDiv.appendChild(p);
+            }
+        }
+    </script>
+</body>
+</html>
