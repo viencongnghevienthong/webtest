@@ -33,18 +33,31 @@
     </style>
 </head>
 <body>
-    <h1>VI TRI CUA BAN</h1>
-    <h2>Tang   : 1</h2>
-    <h3>Khu vuc: A23</h3>
-    <h4>SIEU THI BIGC</h4> 
-    <!--
+    <h1>HELLO 1</h1>
+    
+    <p id="saved-info"></p>
+
     <button class="button" onclick="goToPage2()">Go to Page 2</button>
 
     <script>
         function goToPage2() {
             window.location.href = 'page2.html';
         }
+
+        // Hàm để lấy thông tin từ localStorage
+        function getInfoFromLocalStorage() {
+            var info = localStorage.getItem('browserInfo');
+            if (info) {
+                document.getElementById('saved-info').innerText = 'Thông tin trình duyệt đã lưu: ' + info;
+            } else {
+                document.getElementById('saved-info').innerText = 'Không có thông tin trình duyệt nào được lưu.';
+            }
+        }
+
+        // Gọi hàm để lấy thông tin khi trang được tải
+        window.onload = function() {
+            getInfoFromLocalStorage();
+        };
     </script>
-    -->
 </body>
 </html>
