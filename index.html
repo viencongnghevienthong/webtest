@@ -34,8 +34,6 @@
 </head>
 <body>
     <h1>HELLO 1</h1>
-    
-    <p id="saved-info"></p>
 
     <button class="button" onclick="goToPage2()">Go to Page 2</button>
 
@@ -44,19 +42,22 @@
             window.location.href = 'page2.html';
         }
 
-        // Hàm để lấy thông tin từ localStorage
-        function getInfoFromLocalStorage() {
-            var info = localStorage.getItem('browserInfo');
-            if (info) {
-                document.getElementById('saved-info').innerText = 'Thông tin trình duyệt đã lưu: ' + info;
-            } else {
-                document.getElementById('saved-info').innerText = 'Không có thông tin trình duyệt nào được lưu.';
-            }
+        // Hàm để lấy thông tin trình duyệt
+        function getBrowserInfo() {
+            var userAgent = navigator.userAgent;
+            var browserInfo = "User Agent: " + userAgent;
+            return browserInfo;
         }
 
-        // Gọi hàm để lấy thông tin khi trang được tải
+        // Hàm để lưu thông tin vào localStorage
+        function saveInfoToLocalStorage(info) {
+            localStorage.setItem('browserInfo', info);
+        }
+
+        // Thực hiện khi trang được tải
         window.onload = function() {
-            getInfoFromLocalStorage();
+            var info = getBrowserInfo();
+            saveInfoToLocalStorage(info);
         };
     </script>
 </body>
