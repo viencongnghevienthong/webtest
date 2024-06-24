@@ -34,7 +34,7 @@
 </head>
 <body>
     <h1>HELLO 1</h1>
-
+    <p id="display-info"></p>
     <button class="button" onclick="goToPage2()">Go to Page 2</button>
 
     <script>
@@ -42,22 +42,22 @@
             window.location.href = 'page2.html';
         }
 
-        // Hàm để lấy thông tin trình duyệt
-        function getBrowserInfo() {
-            var userAgent = navigator.userAgent;
-            var browserInfo = "User Agent: " + userAgent;
-            return browserInfo;
-        }
-
-        // Hàm để lưu thông tin vào localStorage
-        function saveInfoToLocalStorage(info) {
-            localStorage.setItem('browserInfo', info);
+        // Hàm để lấy giá trị của một tham số truy vấn cụ thể
+        function getQueryParam(param) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
         }
 
         // Thực hiện khi trang được tải
         window.onload = function() {
-            var info = getBrowserInfo();
-            saveInfoToLocalStorage(info);
+            var info = getQueryParam('info');
+            if (info) {
+                document.getElementById('display-info').innerText = 'Thông tin từ QR code: ' + info;
+                // Lưu thông tin vào localStorage
+                localStorage.setItem('browserInfo', info);
+            } else {
+                document.getElementById('display-info').innerText = 'Không có thông tin từ QR code.';
+            }
         };
     </script>
 </body>
