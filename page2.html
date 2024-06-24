@@ -36,7 +36,9 @@
     <!-- Thêm hình ảnh trước chữ HELLO 2 -->
     <img src="Bd01.png" alt="Bd01" style="width:300px;height:auto;">
     <h1>HELLO 2</h1>
-    
+
+    <p id="browser-info"></p>
+
     <button class="button" onclick="goToPage1()">Go to Page 1</button>
 
     <script>
@@ -44,35 +46,21 @@
             window.location.href = 'index.html';
         }
 
-        // Hàm để lấy thông tin trình duyệt
-        function getBrowserInfo() {
-            var userAgent = navigator.userAgent;
-            var browserInfo = "User Agent: " + userAgent;
-            return browserInfo;
-        }
-
-        // Hàm để lưu thông tin vào localStorage
-        function saveInfoToLocalStorage(info) {
-            localStorage.setItem('browserInfo', info);
-        }
-
-        // Đọc đoạn văn bản
-        function readText(text) {
-            if ('speechSynthesis' in window) {
-                var msg = new SpeechSynthesisUtterance();
-                msg.text = text;
-                msg.lang = 'en-US'; // Bạn có thể thay đổi ngôn ngữ tại đây
-                window.speechSynthesis.speak(msg);
-            } else {
-                alert('Trình duyệt của bạn không hỗ trợ tính năng này.');
-            }
+        // Hàm để lấy thông tin từ localStorage
+        function getInfoFromLocalStorage() {
+            var info = localStorage.getItem('browserInfo');
+            return info;
         }
 
         // Thực hiện khi trang được tải
         window.onload = function() {
-            var info = getBrowserInfo();
-            saveInfoToLocalStorage(info);
-            readText('This is the text to be read aloud when the page loads.');
+            var info = getInfoFromLocalStorage();
+            var infoDisplay = document.getElementById('browser-info');
+            if (info) {
+                infoDisplay.innerText = 'Thông tin trình duyệt đã lưu: ' + info;
+            } else {
+                infoDisplay.innerText = 'Bạn chưa lưu thông tin';
+            }
         };
     </script>
 </body>
