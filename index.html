@@ -3,62 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang 1</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 20%;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            outline: none;
-            color: #fff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 9px #999;
-        }
-        .button:hover {background-color: #3e8e41}
-        .button:active {
-            background-color: #3e8e41;
-            box-shadow: 0 5px #666;
-            transform: translateY(4px);
-        }
-    </style>
+    <title>Lưu vị trí đỗ xe</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>HELLO 1</h1>
-    <p id="display-info"></p>
-    <button class="button" onclick="goToPage2()">Go to Page 2</button>
-
-    <script>
-        function goToPage2() {
-            window.location.href = 'page2.html';
-        }
-
-        // Hàm để lấy giá trị của một tham số truy vấn cụ thể
-        function getQueryParam(param) {
-            var urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Thực hiện khi trang được tải
-        window.onload = function() {
-            var info = getQueryParam('info');
-            if (info) {
-                document.getElementById('display-info').innerText = 'Thông tin từ QR code: ' + info;
-                // Lưu thông tin vào localStorage
-                localStorage.setItem('browserInfo', info);
-            } else {
-                document.getElementById('display-info').innerText = 'Không có thông tin từ QR code.';
-            }
-        };
-    </script>
+    <h1>Lưu vị trí đỗ xe</h1>
+    <div id="position-info"></div>
+    <div id="confirmation" style="display:none;">
+        <p>Bạn muốn đổi khu vực đỗ xe?</p>
+        <button id="yes-button">Yes</button>
+        <button id="no-button">No</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
